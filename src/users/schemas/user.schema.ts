@@ -1,21 +1,27 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@ObjectType()
+@Schema({ collection: 'users' })
 export class User {
-    @Prop()
-    userId: string;
+  @Field()
+  @Prop()
+  userId: string;
 
-    @Prop()
-    email: string;
+  @Field()
+  @Prop()
+  email: string;
 
-    @Prop()
-    age: number;
+  @Field()
+  @Prop()
+  age: number;
 
-    @Prop([String])
-    favoriteFoods: string[]
+  @Field(() => [String])
+  @Prop([String])
+  favoriteFoods: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
